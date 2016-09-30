@@ -684,6 +684,8 @@ var renewSession = function(req, res, next) {
     var principal = req.principal,
         user = req.principalUser;
 
+  console.log("Renew Session");
+
     Step(
         function() {
             // We only need to set this if it's not already set
@@ -703,6 +705,8 @@ var renewSession = function(req, res, next) {
 var reqHost = function(req, res, next) {
     var hostname = req.params.hostname;
 
+    console.log("Request Host: ", hostname);
+
     Step(
         function() {
             Host.get(hostname, this);
@@ -711,6 +715,7 @@ var reqHost = function(req, res, next) {
             if (err) {
                 next(err);
             } else {
+                console.log("Host: ", host);
                 req.host = host;
                 next();
             }
@@ -721,6 +726,13 @@ var reqHost = function(req, res, next) {
 var reqToken = function(req, res, next) {
     var token = req.query.oauth_token,
         host = req.host;
+
+    // console.log("Request token");
+    // console.log("Request:", req);
+    // console.log("host", host);
+    // console.log("Token", token);
+    // // console.log("Routes: ", req.routes);
+    // console.log("Params: ", req.params);
 
     Step(
         function() {
@@ -745,24 +757,30 @@ var authorized = function(req, res, next) {
         principal,
         pair;
 
+
     Step(
         function() {
+          req.log.debug({host: host, rt: rt, verifier: verifier});
+
             host.getAccessToken(rt, verifier, this);
         },
         function(err, results) {
             if (err) throw err;
             pair = results;
+            console.log("results: ", results);
             host.whoami(pair.token, pair.secret, this);
         },
         function(err, obj) {
             if (err) throw err;
             // XXX: test id and url for hostname
+            console.log("Obj", obj);
             ActivityObject.ensureObject(obj, this);
         },
         function(err, results) {
             var at;
             if (err) throw err;
             principal = results;
+            console.log("Results: ", results);
             at = new RemoteAccessToken({
                 id: principal.id,
                 type: principal.objectType,
