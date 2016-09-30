@@ -1,0 +1,22 @@
+version: '2'
+services:
+  pump:
+    image: kronkltd/pump.io
+    build: .
+    ports:
+      - 8093:80
+    depends_on:
+      - mongo
+    environment:
+      PUMPIO_HOST: pump2.kronkltd.net
+    volumes:
+      - .:/app
+
+  mongo:
+    image: mongo
+    volumes:
+      - pump-data:/data/db
+
+volumes:
+  pump-data:
+    driver: dvol
