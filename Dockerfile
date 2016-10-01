@@ -33,6 +33,9 @@ RUN test/hosts.sh
 # RUN mkdir $APP_HOME
 RUN chown -R ${uid}:${gid} ${APP_HOME}
 
+RUN touch /etc/pump.io.json
+RUN chown -R ${uid}:${gid} /etc/pump.io.json
+
 USER $user
 
 ### Install Node Modules
