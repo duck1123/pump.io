@@ -46,7 +46,7 @@ RUN mkdir -p /app/node_modules
 RUN ls -al /app/node_modules
 
 RUN npm install
-RUN npm install databank-mongodb
+RUN npm install databank-mongodb connect-multiparty
 
 ### Add Source
 ADD . $APP_HOME
