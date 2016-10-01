@@ -21,8 +21,10 @@ RUN set -ex \
     && tar -zxv -C /usr/local/bin -f /tmp/sigil.tgz \
     && rm /tmp/sigil.tgz
 
-RUN apt-get update \
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get update \
     && apt-get install -y \
+       libstdc++6 \
        sudo
 
 ADD test/hosts.sh $APP_HOME/test/hosts.sh
