@@ -21,8 +21,7 @@ RUN set -ex \
     && tar -zxv -C /usr/local/bin -f /tmp/sigil.tgz \
     && rm /tmp/sigil.tgz
 
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
-    && apt-get update \
+RUN apt-get update \
     && apt-get install -y \
        bcrypt \
        sudo
