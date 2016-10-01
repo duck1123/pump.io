@@ -24,7 +24,7 @@ RUN set -ex \
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
     && apt-get update \
     && apt-get install -y \
-       libstdc++6 \
+       bcrypt \
        sudo
 
 ADD test/hosts.sh $APP_HOME/test/hosts.sh
