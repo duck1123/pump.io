@@ -15,7 +15,7 @@ stage('Prepare environment') {
     node {
         step([$class: 'WsCleanup'])
 
-        env.CXX = "g++-4.8"
+        // env.CXX = "g++-4.8"
 
         // Set current git commit
         checkout scm
