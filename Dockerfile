@@ -25,6 +25,7 @@ RUN apt-get update \
     && apt-get install -y \
        bcrypt \
        g++-4.8 \
+       libstdc++6 \
        sudo
 
 ADD test/hosts.sh $APP_HOME/test/hosts.sh
