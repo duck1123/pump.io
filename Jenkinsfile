@@ -1,6 +1,6 @@
 #!groovy
 
-def org = 'kronkltd'
+def org = 'duck1123'
 def project = 'pump.io'
 
 def repo = 'repo.jiksnu.org/'
@@ -8,9 +8,8 @@ def repoCreds = '8bb2c76c-133c-4c19-9df1-20745c31ac38'
 def repoPath = 'https://repo.jiksnu.org/'
 
 // Set build properties
-properties([[$class: 'GithubProjectProperty',
-               displayName: 'pump.io',
-               projectUrlStr: 'https://github.com/duck1123/pump.io/']]);
+properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '5']],
+            [$class: 'GithubProjectProperty', displayName: 'pump.io', projectUrlStr: "https://github.com/${org}/${project}/"]]);
 
 stage('Prepare environment') {
     node {
