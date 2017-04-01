@@ -39,18 +39,18 @@ RUN chown -R ${uid}:${gid} /etc/pump.io.json
 
 USER $user
 
-### Install Node Modules
-ADD package.json $APP_HOME
-ADD bin $APP_HOME/bin
+# ### Install Node Modules
+# ADD package.json $APP_HOME
+# ADD bin $APP_HOME/bin
+
+### Add Source
+ADD . $APP_HOME
 
 RUN mkdir -p /app/node_modules
 RUN ls -al /app/node_modules
 
 RUN npm install
 RUN npm install databank-mongodb connect-multiparty
-
-### Add Source
-ADD . $APP_HOME
 
 EXPOSE "8080"
 
